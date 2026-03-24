@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0rem;
+    /* Dark-first brand palette */
+    --background: 0.08 0 0;
+    --foreground: 1 0 0;
+    --card: 0.12 0 0;
+    --card-foreground: 1 0 0;
+    --popover: 0.14 0 0;
+    --popover-foreground: 1 0 0;
+    --primary: 0.76 0.067 75;
+    --primary-foreground: 0.08 0 0;
+    --secondary: 0.16 0 0;
+    --secondary-foreground: 1 0 0;
+    --muted: 0.16 0 0;
+    --muted-foreground: 0.77 0 0;
+    --accent: 0.24 0.058 175;
+    --accent-foreground: 1 0 0;
+    --destructive: 0.65 0.22 28;
+    --destructive-foreground: 1 0 0;
+    --border: 0.22 0 0;
+    --input: 0.22 0 0;
+    --ring: 0.76 0.067 75;
+    --chart-1: 0.76 0.067 75;
+    --chart-2: 0.24 0.058 175;
+    --chart-3: 1 0 0;
+    --chart-4: 0.77 0 0;
+    --chart-5: 0.5 0 0;
+    --sidebar: 0.1 0 0;
+    --sidebar-foreground: 1 0 0;
+    --sidebar-primary: 0.76 0.067 75;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.16 0 0;
+    --sidebar-accent-foreground: 1 0 0;
+    --sidebar-border: 0.22 0 0;
+    --sidebar-ring: 0.76 0.067 75;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Barlow", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Barlow Condensed", sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Barlow Condensed", sans-serif;
+  }
+
+  .font-body {
+    font-family: "Barlow", sans-serif;
+  }
+}
