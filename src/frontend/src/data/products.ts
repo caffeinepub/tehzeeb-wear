@@ -80,7 +80,7 @@ export const products: Product[] = [
     id: 4,
     name: "Bandana Track Trouser – Black",
     article: "Bandana Track Trouser",
-    price: 2500,
+    price: 2799,
     originalPrice: 3500,
     category: "bottom",
     image:
@@ -103,7 +103,7 @@ export const products: Product[] = [
     id: 5,
     name: "Bandana Track Trouser – Red",
     article: "Bandana Track Trouser",
-    price: 2500,
+    price: 2799,
     originalPrice: 3500,
     category: "bottom",
     image:
