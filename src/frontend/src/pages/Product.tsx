@@ -3,18 +3,22 @@ import { ArrowLeft, Minus, Plus } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { OrderDialog } from "../components/OrderDialog";
 import { useCart } from "../context/CartContext";
 import { getProductById } from "../data/products";
 
-const SIZES = ["S", "M", "L", "XL"];
+const DEFAULT_SIZES = ["M", "L", "XL"];
 
 export function ProductPage() {
   const { id } = useParams({ strict: false }) as { id: string };
   const product = getProductById(Number(id));
-  const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState("M");
+  const { addToCart, setCartOpen } = useCart();
+  const sizes = product?.sizes ?? DEFAULT_SIZES;
+  const [selectedSize, setSelectedSize] = useState(sizes[0]);
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
+  const [showBack, setShowBack] = useState(false);
+  const [orderOpen, setOrderOpen] = useState(false);
 
   if (!product) {
     return (
@@ -37,7 +41,13 @@ export function ProductPage() {
     addToCart(product, selectedSize, qty);
     setAdding(false);
     toast.success(`${product.name} added to cart.`);
+    setCartOpen(true);
   };
+
+  const displayImage =
+    showBack && product.backImage ? product.backImage : product.image;
+
+  const singleItem = [{ product, size: selectedSize, quantity: qty }];
 
   return (
     <main className="min-h-screen bg-brand-bg pt-24">
@@ -57,13 +67,45 @@ export function ProductPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-brand-green aspect-[4/5] overflow-hidden"
           >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
+            <div className="bg-zinc-900 aspect-[4/5] overflow-hidden">
+              <img
+                key={displayImage}
+                src={displayImage}
+                alt={product.name}
+                className="w-full h-full object-cover transition-opacity duration-300"
+              />
+            </div>
+
+            {/* Front/Back Toggle */}
+            {product.backImage && (
+              <div className="flex gap-2 mt-3">
+                <button
+                  type="button"
+                  onClick={() => setShowBack(false)}
+                  className={`text-xs font-display font-bold tracking-widest uppercase px-4 py-2 border transition-colors ${
+                    !showBack
+                      ? "border-brand-accent bg-brand-accent text-brand-bg"
+                      : "border-white/20 text-white/50 hover:border-white hover:text-white"
+                  }`}
+                  data-ocid="product.toggle"
+                >
+                  FRONT
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowBack(true)}
+                  className={`text-xs font-display font-bold tracking-widest uppercase px-4 py-2 border transition-colors ${
+                    showBack
+                      ? "border-brand-accent bg-brand-accent text-brand-bg"
+                      : "border-white/20 text-white/50 hover:border-white hover:text-white"
+                  }`}
+                  data-ocid="product.toggle"
+                >
+                  BACK
+                </button>
+              </div>
+            )}
           </motion.div>
 
           {/* RIGHT: Details */}
@@ -86,17 +128,43 @@ export function ProductPage() {
               )}
             </div>
 
+            {product.article && (
+              <p className="text-brand-muted font-body text-xs uppercase tracking-brandxl mb-1">
+                {product.article}
+              </p>
+            )}
+
             <h1 className="font-display font-black text-3xl md:text-4xl text-white uppercase tracking-tight leading-tight mb-4">
               {product.name}
             </h1>
 
-            <p className="text-2xl font-display font-bold text-brand-accent mb-8">
-              PKR {product.price.toLocaleString()}
-            </p>
+            {/* Price */}
+            <div className="flex items-center gap-4 mb-8">
+              <p className="text-2xl font-display font-bold text-brand-accent">
+                PKR {product.price.toLocaleString()}
+              </p>
+              {product.originalPrice && (
+                <p className="text-lg font-display font-bold text-white/40 line-through">
+                  PKR {product.originalPrice.toLocaleString()}
+                </p>
+              )}
+            </div>
 
             <p className="text-brand-muted font-body text-sm leading-relaxed mb-8">
               {product.description}
             </p>
+
+            {/* Colors */}
+            {product.colors && product.colors.length > 0 && (
+              <div className="mb-6">
+                <p className="text-xs font-body font-bold tracking-brandwide text-white/50 uppercase mb-2">
+                  Available Colors
+                </p>
+                <p className="text-brand-muted font-body text-sm">
+                  {product.colors.join(" / ")}
+                </p>
+              </div>
+            )}
 
             {/* Size Selector */}
             <div className="mb-8">
@@ -104,7 +172,7 @@ export function ProductPage() {
                 Size
               </p>
               <div className="flex gap-2">
-                {SIZES.map((size) => (
+                {sizes.map((size) => (
                   <button
                     key={size}
                     type="button"
@@ -161,6 +229,16 @@ export function ProductPage() {
               {adding ? "ADDING..." : "ADD TO CART"}
             </button>
 
+            {/* Place Order */}
+            <button
+              type="button"
+              onClick={() => setOrderOpen(true)}
+              className="w-full bg-white text-brand-bg font-display font-black text-sm tracking-brandwide uppercase py-5 hover:bg-zinc-200 transition-colors mb-4"
+              data-ocid="product.open_modal_button"
+            >
+              PLACE ORDER
+            </button>
+
             {/* Product Details */}
             <div className="border-t border-white/10 pt-8 mt-4 space-y-4">
               <div>
@@ -179,6 +257,16 @@ export function ProductPage() {
                   {product.fit}
                 </p>
               </div>
+              {product.deliveryTime && (
+                <div>
+                  <p className="text-xs font-body font-bold tracking-brandwide text-white/40 uppercase mb-1">
+                    Delivery Time
+                  </p>
+                  <p className="text-brand-muted text-sm font-body">
+                    {product.deliveryTime}
+                  </p>
+                </div>
+              )}
               <div>
                 <p className="text-xs font-body font-bold tracking-brandwide text-white/40 uppercase mb-1">
                   Design Meaning
@@ -191,6 +279,12 @@ export function ProductPage() {
           </motion.div>
         </div>
       </div>
+
+      <OrderDialog
+        open={orderOpen}
+        onClose={() => setOrderOpen(false)}
+        items={singleItem}
+      />
     </main>
   );
 }
