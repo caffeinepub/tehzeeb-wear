@@ -23,7 +23,7 @@ export const products: Product[] = [
     id: 1,
     name: "Sukoon Printed Drop Shoulders – Black",
     article: "Sukoon Printed Drop Shoulders",
-    price: 1600,
+    price: 1800,
     category: "tee",
     image:
       "/assets/uploads/whatsapp_image_2026-03-24_at_10.57.52_pm-019d2109-1663-75bb-bd9a-bcb6fb503097-1.jpeg",
@@ -42,7 +42,7 @@ export const products: Product[] = [
     id: 2,
     name: "Sukoon Printed Drop Shoulders – White",
     article: "Sukoon Printed Drop Shoulders",
-    price: 1600,
+    price: 1800,
     category: "tee",
     image:
       "/assets/uploads/whatsapp_image_2026-03-24_at_10.57.58_pm-019d2109-17c3-72c1-ba80-e2ee6580810f-3.jpeg",
@@ -61,7 +61,7 @@ export const products: Product[] = [
     id: 3,
     name: "Sukoon Printed Drop Shoulders – Yellow",
     article: "Sukoon Printed Drop Shoulders",
-    price: 1600,
+    price: 1800,
     category: "tee",
     image:
       "/assets/uploads/whatsapp_image_2026-03-24_at_10.57.56_pm-019d2109-1802-72cd-bd9e-189da57e233d-4.jpeg",
