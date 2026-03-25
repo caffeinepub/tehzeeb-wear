@@ -139,7 +139,7 @@ export function ProductPage() {
             </h1>
 
             {/* Price */}
-            <div className="flex items-center gap-4 mb-8">
+            <div className="flex items-center gap-4 mb-8 flex-wrap">
               <p className="text-2xl font-display font-bold text-brand-accent">
                 PKR {product.price.toLocaleString()}
               </p>
@@ -147,6 +147,11 @@ export function ProductPage() {
                 <p className="text-lg font-display font-bold text-white/40 line-through">
                   PKR {product.originalPrice.toLocaleString()}
                 </p>
+              )}
+              {product.saleLabel && (
+                <span className="bg-green-600 text-white text-xs font-black uppercase tracking-wider px-3 py-1">
+                  {product.saleLabel}
+                </span>
               )}
             </div>
 

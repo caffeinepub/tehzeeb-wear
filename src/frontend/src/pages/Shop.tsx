@@ -33,6 +33,13 @@ function ProductCard({ product }: { product: (typeof products)[0] }) {
             }`}
           />
         )}
+        {product.saleLabel && (
+          <div className="absolute top-3 left-3">
+            <span className="bg-green-600 text-white text-[10px] font-black uppercase px-2 py-0.5">
+              {product.saleLabel}
+            </span>
+          </div>
+        )}
         <div
           className={`absolute inset-0 flex items-end justify-center pb-6 transition-opacity duration-300 ${
             hovered ? "opacity-100" : "opacity-0"
@@ -45,7 +52,7 @@ function ProductCard({ product }: { product: (typeof products)[0] }) {
       </div>
       <div className="mt-4">
         <p className="font-body text-sm text-white/60 mb-1">{product.name}</p>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <p className="font-display font-bold text-brand-accent text-base">
             PKR {product.price.toLocaleString()}
           </p>
@@ -53,6 +60,11 @@ function ProductCard({ product }: { product: (typeof products)[0] }) {
             <p className="font-body text-sm text-white/40 line-through">
               PKR {product.originalPrice.toLocaleString()}
             </p>
+          )}
+          {product.saleLabel && (
+            <span className="bg-green-600 text-white text-[10px] font-black uppercase px-2 py-0.5">
+              {product.saleLabel}
+            </span>
           )}
         </div>
       </div>
@@ -146,7 +158,7 @@ export function ShopPage() {
             Delivery across all of Pakistan
           </span>
           <span className="text-brand-muted text-xs font-body">
-            Order online anytime — we’re open 24/7
+            Order online anytime — we're open 24/7
           </span>
         </div>
       </div>

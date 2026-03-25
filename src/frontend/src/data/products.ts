@@ -4,6 +4,7 @@ export interface Product {
   article?: string;
   price: number;
   originalPrice?: number;
+  saleLabel?: string;
   category: "hoodie" | "tee" | "kurta" | "bottom";
   image: string;
   backImage?: string;
@@ -119,6 +120,29 @@ export const products: Product[] = [
     sizes: ["S", "M", "L", "XL"],
     deliveryTime: "5 to 10 working days",
     colors: ["Black", "Red"],
+  },
+  {
+    id: 6,
+    name: "Branded Ralph Lauren Cotton Trouser",
+    article: "Branded Ralph Lauren Cotton Trouser",
+    price: 2500,
+    originalPrice: 5000,
+    saleLabel: "50% OFF",
+    category: "bottom",
+    image:
+      "/assets/uploads/whatsapp_image_2026-03-25_at_8.22.56_pm_1-019d25a4-9884-71ff-a274-d3f93a1bfc3b-4.jpeg",
+    backImage:
+      "/assets/uploads/whatsapp_image_2026-03-25_at_8.22.57_pm-019d25a4-957e-739e-a993-43cab07c2b6c-2.jpeg",
+    stock: 50,
+    limitedDrop: false,
+    fabric: "100% Cotton",
+    fit: "Relaxed Fit",
+    description: "100% cotton comfortable for any occasions relaxed fit.",
+    designMeaning:
+      "Classic Polo Ralph Lauren craftsmanship — timeless style meets everyday comfort.",
+    sizes: ["M", "L", "XL"],
+    deliveryTime: "5 to 10 working days",
+    colors: ["Egg White"],
   },
 ];
 
